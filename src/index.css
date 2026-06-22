@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Industrial Palette matching guidelines */
+  --color-industrial-navy: #051125;
+  --color-steel-blue: #1B263B;
+  --color-safety-orange: #C67C3E;
+  --color-teal-cyan: #47607E;
+  --color-slate-background: #F8F9FF;
+}
+
+/* Custom highlight class for original panel borders and block headers */
+.tf02-card {
+  @apply bg-white border border-slate-200 shadow-sm rounded-xl overflow-hidden relative transition-all duration-200;
+}
+
+.tf02-card-header-yellow {
+  @apply border-t-4 border-[#C67C3E];
+}
+
+.tf02-card-header-blue {
+  @apply border-t-4 border-[#051125];
+}
+
+.tf02-card-header-red {
+  @apply border-t-4 border-[#C67C3E];
+}
+
+.tf02-card-header-green {
+  @apply border-t-4 border-[#38A169];
+}
+
+.tf02-badge-red {
+  @apply inline-flex items-center gap-1 font-mono text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-[#C67C3E]/15 text-[#C67C3E] border border-[#C67C3E]/10;
+}
+
+.tf02-badge-blue {
+  @apply inline-flex items-center gap-1 font-mono text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-[#051125]/15 text-[#051125] border border-[#051125]/10;
+}
+
+.tf02-badge-green {
+  @apply inline-flex items-center gap-1 font-mono text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--color-slate-background);
+  font-size: 130%;
+}
+
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Custom micro scrollbar style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+  border-radius: 6px;
+  border: 1.5px solid #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748B;
+}
