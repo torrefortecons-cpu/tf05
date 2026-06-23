@@ -25,7 +25,7 @@ Reglas estrictas:
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 
   // Middleware to parse json bodies up to 10MB
   app.use(express.json({ limit: "10mb" }));

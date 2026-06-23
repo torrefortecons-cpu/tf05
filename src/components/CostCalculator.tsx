@@ -699,7 +699,7 @@ export default function CostCalculator() {
           }`}
         >
           <Package className={`w-[31px] h-[31px] sm:w-3.5 sm:h-3.5 flex-shrink-0 transition-colors ${activeSubTab === 'materiales' ? 'text-[#C67C3E]' : 'text-slate-400'}`} />
-          <span className="truncate w-full block sm:hidden text-[5px] uppercase tracking-tighter">Materia prima</span>
+          <span className="truncate w-full block sm:hidden text-[8px] uppercase tracking-tighter">Materia prima</span>
           <span className="truncate hidden sm:block">Materia prima ({materiales.length})</span>
         </button>
         <button
@@ -711,7 +711,7 @@ export default function CostCalculator() {
           }`}
         >
           <Wrench className={`w-[31px] h-[31px] sm:w-3.5 sm:h-3.5 flex-shrink-0 transition-colors ${activeSubTab === 'producto' ? 'text-[#C67C3E]' : 'text-slate-400'}`} />
-          <span className="truncate w-full block sm:hidden text-[5px] uppercase tracking-tighter">Armar Soporte</span>
+          <span className="truncate w-full block sm:hidden text-[8px] uppercase tracking-tighter">Armar Soporte</span>
           <span className="truncate hidden sm:block">Armar soporte ({uniqueProducts.length})</span>
         </button>
         <button
@@ -725,7 +725,7 @@ export default function CostCalculator() {
           }`}
         >
           <Calculator className={`w-[31px] h-[31px] sm:w-3.5 sm:h-3.5 flex-shrink-0 transition-colors ${activeSubTab === 'costos' ? 'text-[#C67C3E]' : 'text-slate-400'}`} />
-          <span className="truncate w-full block sm:hidden text-[5px] uppercase tracking-tighter">Costos</span>
+          <span className="truncate w-full block sm:hidden text-[8px] uppercase tracking-tighter">Costos</span>
           <span className="truncate hidden sm:block">Costos y sugeridos ({Object.keys(costosPorProducto).length})</span>
         </button>
       </div>
@@ -1092,7 +1092,7 @@ export default function CostCalculator() {
           <div className="lg:col-span-8 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
             <h4 className="font-bold text-sm text-[#051125] pb-2 border-b flex items-center justify-between">
               <span className="flex items-center gap-1.5">
-                <Building2 className="w-4.5 h-4.5 text-[#051125]" />
+                <Building2 className="w-[1.26rem] h-[1.26rem] text-[#051125]" />
                 Composición de Materiales de Soportes Registrados
               </span>
               <span className="text-[11px] font-mono text-slate-400 font-normal">Sincronizado</span>
@@ -1114,27 +1114,66 @@ export default function CostCalculator() {
                   return (
                     <div key={prodName} className="border border-slate-200 rounded-xl overflow-hidden shadow-sm transition-all">
                       {/* Accordion header */}
-                      <div 
+                      <div
                         onClick={() => setExpandedGroups(prev => ({ ...prev, [prodName]: !isOpened }))}
-                        className="bg-slate-50 hover:bg-slate-100/70 p-3.5 px-4 flex items-center justify-between cursor-pointer select-none border-b border-slate-200 transition-all"
+                        className="bg-slate-50 hover:bg-slate-100/70 p-3.5 px-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-0 cursor-pointer select-none border-b border-slate-200 transition-all"
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
                           {isOpened ? <ChevronDown className="w-4 h-4 text-[#C67C3E] shrink-0" /> : <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />}
-                          <span className="font-extrabold text-xs text-[#051125] truncate">{prodName}</span>
-                          <span className="text-[10px] shrink-0 font-bold px-1.5 py-0.5 rounded-full bg-slate-200/70 text-slate-600 font-mono">
+                          <span className="font-extrabold text-xs text-[#051125] whitespace-normal break-words sm:truncate">{prodName}</span>
+                        </div>
+                        <div className="flex items-center justify-between sm:justify-end gap-2 text-right pl-6 sm:pl-0">
+                          <span className="text-[12px] shrink-0 font-bold px-1.5 py-0.5 rounded-full bg-slate-200/70 text-slate-600 font-mono">
                             {items.length} insumos
                           </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-right">
-                          <span className="text-[10px] text-slate-500 font-mono">Suma Insumos:</span>
+                          <span className="text-[12px] text-slate-500 font-mono">Suma Insumos:</span>
                           <span className="font-extrabold text-xs text-slate-800 font-mono">{fmtBs(subTotalMaterials)}</span>
                         </div>
                       </div>
 
-                      {/* Accordion body table */}
+                      {/* Accordion body */}
                       {isOpened && (
                         <div className="p-3 bg-white">
-                          <table className="w-full text-left font-sans text-xs">
+                          {/* Mobile: stacked cards */}
+                          <div className="sm:hidden space-y-2">
+                            {items.map((it) => {
+                              const globalIdx = lineasProducto.findIndex(
+                                l => l.producto === it.producto && l.matId === it.matId && l.uso === it.uso
+                              );
+
+                              return (
+                                <div key={`${it.matId}-${it.uso}`} className="border border-slate-100 rounded-lg p-2.5 bg-slate-50/40">
+                                  <div className="flex items-start justify-between gap-2">
+                                    <span className="font-bold text-xs text-slate-800">{it.nombre}</span>
+                                    <button
+                                      onClick={() => handleQuitarLinea(globalIdx)}
+                                      className="p-1 shrink-0 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-all cursor-pointer"
+                                      title="Quitar este componente"
+                                    >
+                                      <Trash2 className="w-3.5 h-3.5" />
+                                    </button>
+                                  </div>
+                                  <div className="grid grid-cols-3 gap-1.5 mt-2 text-[10px] font-mono">
+                                    <div>
+                                      <p className="text-slate-400 uppercase tracking-wide text-[8.5px]">Cantidad</p>
+                                      <p className="font-bold text-slate-700">{it.uso.toFixed(2)} {it.unidad}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-slate-400 uppercase tracking-wide text-[8.5px]">Costo Unit.</p>
+                                      <p className="text-slate-600">{fmtBs(it.ppu)}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-slate-400 uppercase tracking-wide text-[8.5px]">Costo Total</p>
+                                      <p className="font-bold text-slate-800">{fmtBs(it.costo)}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          {/* Desktop / tablet: table */}
+                          <table className="hidden sm:table w-full text-left font-sans text-xs">
                             <thead>
                               <tr className="border-b border-slate-100 text-[9px] uppercase font-bold text-slate-400 tracking-wider">
                                 <th className="py-2 px-2">Nombre del Insumo / Componente</th>

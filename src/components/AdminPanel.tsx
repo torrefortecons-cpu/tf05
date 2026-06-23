@@ -1689,7 +1689,7 @@ export default function AdminPanel({
       )}
       <div className="lg:hidden flex flex-col gap-0.5 bg-transparent mb-0.5 select-none touch-pan-x">
         {/* Horizontal scroll ribbon prioritizing icons with circular chips and badges */}
-        <div className="flex flex-nowrap gap-2 overflow-x-auto pb-1 pt-0.5 px-0.5 snap-x touch-pan-x">
+        <div className="flex flex-nowrap gap-2 overflow-x-auto pb-1 pt-0.5 px-2 snap-x touch-pan-x bg-[#C67C3E]/10 border border-[#C67C3E]/15 rounded-2xl">
           
           {/* Metric Selector */}
           <button 
@@ -2270,8 +2270,8 @@ export default function AdminPanel({
 
        {/* INCOMING QUOTES MANAGEMENT & REALIZED QUOTES TAB VIEW */}
       {activeTab === 'quotes' && (
-        <div className="space-y-6 animate-fade-in">
-          
+        <div className="space-y-1 animate-fade-in">
+
           {/* Floating Action Button (FAB) for Registering Quotes (only on mobile) */}
           <button
             onClick={() => {
@@ -2287,10 +2287,10 @@ export default function AdminPanel({
           </button>
           
           {/* TOP BANNER WITH ACTION BUTTON */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-2 rounded-xl border border-slate-200 shadow-sm">
             <div>
-              <h3 className="text-lg font-bold text-[#051125] flex items-center gap-2">
-                <FileText className="w-5 h-5 text-[#C67C3E]" />
+              <h3 className="text-[0.9rem] font-bold text-[#051125] flex items-center gap-2">
+                <FileText className="w-[2.03rem] h-[2.03rem] text-[#C67C3E]" />
                 Módulo Integrado de Cotizaciones & Proformas
               </h3>
               <p className="text-xs text-slate-500 mt-1">
@@ -2314,8 +2314,8 @@ export default function AdminPanel({
             
             {/* Quotes list (7 columns) */}
             <div className="lg:col-span-7 bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
-              <div className="p-4 bg-slate-50 border-b border-slate-200">
-                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Historial de Cotizaciones Recibidas</h3>
+              <div className="p-2 bg-slate-50 border-b border-slate-200">
+                <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider text-center">Historial de Cotizaciones Recibidas</h3>
               </div>
               
               {quotes.length === 0 ? (

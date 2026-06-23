@@ -160,32 +160,6 @@ export default function Navbar({ cart, isAdmin, setIsAdmin, onRequestAdminAccess
               Ubicación y Contacto
             </button>
 
-            {/* Sales & Financial Control Mobile Shortcut */}
-            {isAdmin && (
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setAdminTab('ventas');
-                }}
-                className="w-full flex items-center justify-center gap-2 text-xs font-bold px-4 py-2.5 rounded mt-2 bg-emerald-600 text-white shadow-sm"
-              >
-                <span>💵 Ventas & Registro Financiero</span>
-              </button>
-            )}
-
-            {/* Configuración & Gestión Mobile Shortcut */}
-            {isAdmin && (
-              <button 
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setAdminTab('settings');
-                }}
-                className="w-full flex items-center justify-center gap-2 text-xs font-bold px-4 py-2.5 rounded mt-1.5 bg-slate-800 text-white shadow-sm"
-              >
-                <span>⚙️ Configuración & Gestión</span>
-              </button>
-            )}
-
             {/* Admin Toggle on Mobile */}
             <button
               onClick={() => {

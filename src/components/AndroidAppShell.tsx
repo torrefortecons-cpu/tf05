@@ -31,6 +31,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { Product, CartItem, Quote, LandingConfigs } from '../types';
 import TorreForteLogo from './TorreForteLogo';
+import { hasActiveSession } from '../utils/adminAuth';
 
 interface AndroidAppShellProps {
   products: Product[];
@@ -67,6 +68,11 @@ export default function AndroidAppShell({
 }: AndroidAppShellProps) {
   const [activeTab, setActiveTab] = useState<'inicio' | 'catalogo' | 'calcular' | 'soporte'>('inicio');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [hasAdminSession, setHasAdminSession] = useState(false);
+
+  useEffect(() => {
+    setHasAdminSession(hasActiveSession());
+  }, []);
   const [isNativeCartOpen, setIsNativeCartOpen] = useState(false);
   const [selectedNativeProduct, setSelectedNativeProduct] = useState<Product | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -303,37 +309,37 @@ export default function AndroidAppShell({
                     
                     <button 
                       onClick={() => { setActiveTab('inicio'); setIsDrawerOpen(false); }}
-                      className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-xs font-semibold transition-all ${activeTab === 'inicio' ? 'bg-[#C67C3E]/10 text-[#C67C3E]' : 'text-slate-700 hover:bg-slate-50'}`}
+                      className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-[0.675rem] font-semibold transition-all ${activeTab === 'inicio' ? 'bg-[#C67C3E]/10 text-[#C67C3E]' : 'text-slate-700 hover:bg-slate-50'}`}
                     >
-                      <Home className="w-4.5 h-4.5" />
+                      <Home className="w-[1.9rem] h-[1.9rem]" />
                       <span>Pantalla de Inicio</span>
                     </button>
 
                     <button 
                       onClick={() => { setActiveTab('catalogo'); setIsDrawerOpen(false); }}
-                      className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-xs font-semibold transition-all ${activeTab === 'catalogo' ? 'bg-[#C67C3E]/10 text-[#C67C3E]' : 'text-slate-700 hover:bg-slate-50'}`}
+                      className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-[0.675rem] font-semibold transition-all ${activeTab === 'catalogo' ? 'bg-[#C67C3E]/10 text-[#C67C3E]' : 'text-slate-700 hover:bg-slate-50'}`}
                     >
-                      <Package className="w-4.5 h-4.5" />
+                      <Package className="w-[1.9rem] h-[1.9rem]" />
                       <span>Catálogo de Soportes</span>
                     </button>
 
                     <button 
                       onClick={() => { setActiveTab('calcular'); setIsDrawerOpen(false); }}
-                      className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-xs font-semibold transition-all ${activeTab === 'calcular' ? 'bg-[#C67C3E]/10 text-[#C67C3E]' : 'text-slate-700 hover:bg-slate-50'}`}
+                      className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-[0.675rem] font-semibold transition-all ${activeTab === 'calcular' ? 'bg-[#C67C3E]/10 text-[#C67C3E]' : 'text-slate-700 hover:bg-slate-50'}`}
                     >
-                      <Calculator className="w-4.5 h-4.5" />
+                      <Calculator className="w-[1.9rem] h-[1.9rem]" />
                       <span>Calculador de Soporte Ideal</span>
                     </button>
 
                     <button 
                       onClick={() => { setActiveTab('soporte'); setIsDrawerOpen(false); }}
-                      className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-xs font-semibold transition-all ${activeTab === 'soporte' ? 'bg-[#C67C3E]/10 text-[#C67C3E]' : 'text-slate-700 hover:bg-slate-50'}`}
+                      className={`w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-[0.675rem] font-semibold transition-all ${activeTab === 'soporte' ? 'bg-[#C67C3E]/10 text-[#C67C3E]' : 'text-slate-700 hover:bg-slate-50'}`}
                     >
-                      <MapPin className="w-4.5 h-4.5" />
+                      <MapPin className="w-[1.9rem] h-[1.9rem]" />
                       <span>Contacto y Cotización ID</span>
                     </button>
 
-                    <div className="h-px bg-slate-100 my-4" />
+                    <div className="h-px bg-slate-100 my-[0.6px]" />
 
                     <p className="text-[10px] text-slate-400 font-semibold tracking-wider px-3 uppercase mb-2">Administración</p>
                     
@@ -342,9 +348,9 @@ export default function AndroidAppShell({
                         onRequestAdminAccess();
                         setIsDrawerOpen(false);
                       }}
-                      className="w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                      className="w-full flex items-center gap-3.5 px-3.5 py-3 rounded-lg text-[0.675rem] font-semibold text-slate-600 hover:bg-slate-50"
                     >
-                      <Settings className="w-4.5 h-4.5 text-zinc-500" />
+                      <Settings className="w-[1.9rem] h-[1.9rem] text-zinc-500" />
                       <span>Acceso Panel de Caja</span>
                     </button>
                   </div>
@@ -1001,6 +1007,16 @@ export default function AndroidAppShell({
               <motion.span layoutId="activeDot" className="absolute bottom-0 w-1 h-1 bg-[#C67C3E] rounded-full"></motion.span>
             )}
           </button>
+
+          {hasAdminSession && (
+            <button
+              onClick={onRequestAdminAccess}
+              className="flex flex-col items-center justify-center gap-1 py-1 w-14 transition-all relative cursor-pointer text-slate-400 hover:text-slate-600"
+            >
+              <Settings className="w-5 h-5" />
+              <span className="text-[8px] font-bold tracking-tight">Caja</span>
+            </button>
+          )}
         </nav>
 
         {/* BOTTOM SHEET 1: Cart / Cotizar Checkout */}
